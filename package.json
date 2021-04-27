@@ -2,6 +2,9 @@
 	"name": "git-url-copy",
 	"displayName": "git-url-copy",
 	"description": "an extension to copy the exact line of the git repository",
+	"repository": {
+		"url": "https://github.com/javaxiu/git-url-copy"
+	},
 	"publisher": "xiujava",
 	"version": "0.0.1",
 	"engines": {
