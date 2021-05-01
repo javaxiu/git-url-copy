@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
 			if (!repositoryBase) throw new Error('cant\' find git repository');
 			repositoryBase = gitPath2Http(repositoryBase);
 			
-			// https://code.aone.alibaba-inc.com/it-service/alilang/blob/master/src/i18n/index.ts#L6
+			// https://github.com/javaxiu/git-url-copy/blob/main/src/extension.ts#L18
 			const webUrl = `${repositoryBase}/blob/${getCurrentBranch(cwd)}/${fileRelativePath}#L${line}`;
 			clipboard.write(webUrl);
 			vscode.window.showInformationMessage('code copy success ' + webUrl);
@@ -33,7 +33,7 @@ function getCurrentBranch(cwd?: string) {
 function getRepository(cwd?: string) {
 	const remoteUrl = childProcess.execSync('git config --get remote.origin.url', {encoding: 'utf8', cwd});
 	if (remoteUrl.startsWith('git@')) {
-		// git@gitlab.alibaba-inc.com:platform/alinw-live.git
+		// git@github.com:javaxiu/git-url-copy.git
 		return remoteUrl.match(':(.*)\.git')![1];
 	}
 }
