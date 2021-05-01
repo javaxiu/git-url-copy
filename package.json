@@ -5,8 +5,8 @@
 	"repository": {
 		"url": "https://github.com/javaxiu/git-url-copy"
 	},
-	"publisher": "xiujava",
-	"version": "0.0.1",
+	"publisher": "xiujava4vscode",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.55.0"
 	},
@@ -30,7 +30,22 @@
 					"command": "extension.copyGitPath"
 				}
 			]
-		}
+		},
+		"configuration": [
+			{
+				"title": "git-url-copy repository domain replace",
+				"properties": {
+					"gitUrlCopy.repositoryBase": {
+						"type": "array",
+						"default": [
+							["gitlab.alibaba-inc.com", "code.aone.alibaba-inc.com"]
+						],
+						"description": "base repository domain. for example your git path was git@github.com, but you wish to open url with https://myownorigin/{group}/{reposition}",
+						"scope": "window"
+					}
+				}
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
