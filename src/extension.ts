@@ -31,11 +31,7 @@ function getCurrentBranch(cwd?: string) {
 }
 
 function getRepository(cwd?: string) {
-	const remoteUrl = childProcess.execSync('git config --get remote.origin.url', {encoding: 'utf8', cwd});
-	if (remoteUrl.startsWith('git@')) {
-		// git@github.com:javaxiu/git-url-copy.git
-		return remoteUrl.match(':(.*)\.git')![1];
-	}
+	return childProcess.execSync('git config --get remote.origin.url', {encoding: 'utf8', cwd});
 }
 
 function getRepositoryBaseFromPackageJson(file: string): string {
@@ -56,5 +52,6 @@ function gitPath2Http(g: string) {
 	if (!match) return g;
 	const repositoryBase = vscode.workspace.getConfiguration().get<Array<Array<string>>>('gitUrlCopy.repositoryBase') || [];
 	const customRepository = repositoryBase.find(pair => pair[0] === match[1])?.[1];
+	console.log('customRepository ' + customRepository)
 	return `https://${customRepository || match[1]}/${match[2]}/${match[3]}`;
 }
