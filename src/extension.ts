@@ -8,9 +8,9 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerTextEditorCommand('extension.copyGitPath', (textEditor, edit) => {
 		const line = textEditor.selection.start.line + 1;
 		const file = textEditor.document.uri.path;
-		const fileRelativePath = vscode.workspace.asRelativePath(file);
 		const cwd = path.dirname(file);
 		try {
+			const fileRelativePath = path.relative(getGitRootFolder(cwd), file)
 			let repositoryBase = getRepositoryBaseFromPackageJson(file) || getRepository(cwd);
 			if (!repositoryBase) throw new Error('cant\' find git repository');
 			repositoryBase = gitPath2Http(repositoryBase);
@@ -20,11 +20,14 @@ export function activate(context: vscode.ExtensionContext) {
 			clipboard.write(webUrl);
 			vscode.window.showInformationMessage('code copy success ' + webUrl);
 		} catch (e) {
-			vscode.window.showWarningMessage('copy failed ' + e.message);
+			vscode.window.showWarningMessage('[Copy Failed] ' + e.message);
 		}
 	}));
 }
 
+function getGitRootFolder(cwd?: string) {
+	return childProcess.execSync('git rev-parse --show-toplevel', { encoding: 'utf8', cwd }).trim();
+}
 
 function getCurrentBranch(cwd?: string) {
 	return childProcess.execSync('git branch --show-current', {encoding: 'utf8', cwd}).trim();
