@@ -6,13 +6,14 @@
 		"url": "https://github.com/javaxiu/git-url-copy"
 	},
 	"publisher": "xiujava4vscode",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"engines": {
 		"vscode": "^1.55.0"
 	},
 	"categories": [
 		"Other"
 	],
+	"icon": "icon.png",
 	"activationEvents": [
 		"onCommand:extension.copyGitPath"
 	],
@@ -21,7 +22,7 @@
 		"commands": [
 			{
 				"command": "extension.copyGitPath",
-				"title": "copy git path"
+				"title": "Copy Git Path"
 			}
 		],
 		"menus": {
